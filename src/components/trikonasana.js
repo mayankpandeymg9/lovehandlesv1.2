@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import { Pose } from "@mediapipe/pose";
 import * as cam from "@mediapipe/camera_utils";
 import Webcam from "react-webcam";
@@ -16,13 +16,18 @@ import { db } from "../firebase";
 
 const Trikonasana = () => {
   const navigate = useNavigate();
+  const [currentTimer, setCurrentTimer] = useState(0);
+  const [isWebcamReady, setIsWebcamReady] = useState(false);
+  const [isPoseInitialized, setIsPoseInitialized] = useState(false);
+  
   if (!Cookies.get("userID")) {
     alert("Please Login");
     navigate("/");
   }
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
-  let camera = null;
+  const cameraRef = useRef(null);
+  const poseRef = useRef(null);
 
   var t = new Date().getTime();
   const speech = window.speechSynthesis;
@@ -31,8 +36,24 @@ const Trikonasana = () => {
     object.lang = "en-US";
     speech.speak(object);
   };
+
+  const handleWebcamReady = useCallback(() => {
+    console.log("Webcam is ready");
+    setIsWebcamReady(true);
+  }, []);
+
   function onResult(results) {
-    if (results && results.poseLandmarks && webcamRef.current && webcamRef.current.video) {
+    try {
+      if (!results || !results.poseLandmarks) {
+        console.log("No pose detected");
+        return;
+      }
+
+      if (!webcamRef.current || !webcamRef.current.video) {
+        console.log("Webcam not ready");
+        return;
+      }
+
       const position = results.poseLandmarks;
       canvasRef.current.width = webcamRef.current.video.videoWidth;
       canvasRef.current.height = webcamRef.current.video.videoHeight;
@@ -44,6 +65,10 @@ const Trikonasana = () => {
       const leftHand = [];
       const rightHand = [];
       for (let i = 11; i < 17; i++) {
+        if (!position[i]) {
+          console.log("Missing hand landmark");
+          return;
+        }
         let obj = {};
         obj["x"] = position[i].x * width;
         obj["y"] = position[i].y * height;
@@ -58,6 +83,10 @@ const Trikonasana = () => {
       const back = [];
       const indexBack = [12, 24, 26];
       for (let i = 0; i < 3; i++) {
+        if (!position[indexBack[i]]) {
+          console.log("Missing back landmark");
+          return;
+        }
         let obj = {};
         obj["x"] = position[indexBack[i]].x * width;
         obj["y"] = position[indexBack[i]].y * height;
@@ -91,7 +120,6 @@ const Trikonasana = () => {
       const canvasCtx = canvasElement.getContext("2d");
       canvasCtx.save();
       canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-      //canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height)
 
       for (let i = 0; i < 2; i++) {
         canvasCtx.beginPath();
@@ -158,60 +186,92 @@ const Trikonasana = () => {
 
       canvasCtx.font = "30px aerial";
       canvasCtx.fillStyle = "white";
-      const timer = canvasCtx.fillText(
-        "Seconds holded: ".concat(
-          String(Math.round((new Date().getTime() - t) / 1000))
-        ),
+      const timerValue = Math.round((new Date().getTime() - t) / 1000);
+      setCurrentTimer(timerValue);
+      canvasCtx.fillText(
+        "Seconds holded: ".concat(String(timerValue)),
         10,
         40
       );
 
       canvasCtx.restore();
-      speak(timer);
+      speak(timerValue);
+    } catch (error) {
+      console.error("Error in onResult:", error);
     }
   }
 
+  // Initialize pose detection
   useEffect(() => {
-    const pose = new Pose({
-      locateFile: (file) => {
-        return `https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.5.1675469404/${file}`;
-      },
-    });
-    pose.setOptions({
-      modelComplexity: 1,
-      smoothLandmarks: true,
-      minDetectionConfidence: 0.5,
-      minTrackingConfidence: 0.5,
-    });
+    const initializePose = async () => {
+      if (!isWebcamReady || !webcamRef.current || !webcamRef.current.video) {
+        console.log("Waiting for webcam to be ready...");
+        return;
+      }
 
-    pose.onResults(onResult);
+      try {
+        console.log("Initializing pose detection...");
+        const pose = new Pose({
+          locateFile: (file) => {
+            return `https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.5.1675469404/${file}`;
+          },
+        });
 
-    if (
-      typeof webcamRef.current !== "undefined" &&
-      webcamRef.current !== null &&
-      webcamRef.current.video
-    ) {
-      camera = new cam.Camera(webcamRef.current.video, {
-        onFrame: async () => {
-          await pose.send({ image: webcamRef.current.video });
-        },
-        width: 640,
-        height: 480,
-      });
-      camera.start();
+        pose.setOptions({
+          modelComplexity: 1,
+          smoothLandmarks: true,
+          minDetectionConfidence: 0.5,
+          minTrackingConfidence: 0.5,
+        });
+
+        pose.onResults(onResult);
+        poseRef.current = pose;
+
+        const camera = new cam.Camera(webcamRef.current.video, {
+          onFrame: async () => {
+            if (webcamRef.current && webcamRef.current.video) {
+              await pose.send({ image: webcamRef.current.video });
+            }
+          },
+          width: 640,
+          height: 480,
+        });
+
+        cameraRef.current = camera;
+        await camera.start();
+        setIsPoseInitialized(true);
+        console.log("Pose detection initialized successfully");
+      } catch (error) {
+        console.error("Error initializing pose detection:", error);
+      }
+    };
+
+    if (isWebcamReady && !isPoseInitialized) {
+      initializePose();
     }
-  });
+
+    return () => {
+      if (cameraRef.current) {
+        console.log("Stopping camera...");
+        cameraRef.current.stop();
+      }
+      if (poseRef.current) {
+        console.log("Closing pose detection...");
+        poseRef.current.close();
+      }
+    };
+  }, [isWebcamReady, isPoseInitialized]);
+
   const handleClick = () => {
     const ID = Cookies.get("userID");
-    const userTime = onResult();
     const docRef = doc(db, `user/${ID}/trikonasana`, v4());
-    const repsCounter = setDoc(docRef, {
-      timer: userTime,
+    setDoc(docRef, {
+      timer: currentTimer,
       timeStamp: serverTimestamp(),
       uid: ID,
     });
-    console.log(repsCounter);
   };
+
   return (
     <>
       <Container
@@ -232,7 +292,17 @@ const Trikonasana = () => {
             width: "100%",
           }}
         >
-          <Webcam ref={webcamRef} className="full-width" />
+          <Webcam 
+            ref={webcamRef} 
+            className="full-width"
+            onUserMedia={handleWebcamReady}
+            videoConstraints={{
+              width: 640,
+              height: 480,
+              facingMode: "user"
+            }}
+            mirrored={true}
+          />
           <canvas
             ref={canvasRef}
             className="full-width"

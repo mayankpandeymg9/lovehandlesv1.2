@@ -1,20 +1,10 @@
-import React, { useEffect } from "react";
-import ReactDOM from "react-dom/client";
+import React from "react";
+import ReactDOM from "react-dom";
 import App from "./App";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
-import { useLocation, HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import './index.css';
-
-const ScrollToTop = () => {
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-
-  return null;
-};
 
 let theme = createTheme({
   palette: {
@@ -47,11 +37,11 @@ let theme = createTheme({
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-    <HashRouter>
-      <ScrollToTop />
+    <BrowserRouter>
       <App />
-    </HashRouter>
+    </BrowserRouter>
   </ThemeProvider>,
   document.getElementById("root")
 );
+
 serviceWorkerRegistration.register();
