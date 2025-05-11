@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
-import { useLocation, BrowserRouter } from "react-router-dom";
+import { useLocation, HashRouter } from "react-router-dom";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -46,10 +46,10 @@ let theme = createTheme({
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-    <BrowserRouter>
+    <HashRouter>
       <ScrollToTop />
       <App />
-    </BrowserRouter>
+    </HashRouter>
   </ThemeProvider>,
   document.getElementById("root")
 );
