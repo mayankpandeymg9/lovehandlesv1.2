@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import App from "./App";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import { useLocation, HashRouter } from "react-router-dom";
+import './index.css';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
