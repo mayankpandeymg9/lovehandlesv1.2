@@ -69,7 +69,7 @@ function App() {
           mt: 0
         }}
       >
-        © 2024 <span style={{ color: '#2196f3', fontWeight: 700, margin: '0 4px' }}>Love Handles</span>. All rights reserved.
+        © 2025 <span style={{ color: '#2196f3', fontWeight: 700, margin: '0 4px' }}>Love Handles</span>. All rights reserved.
       </Box>
     </>
   );

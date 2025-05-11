@@ -66,22 +66,22 @@ const HomeHeader = ({ props }) => {
             color: "#fff",
           }}
         >
-          <a href="/bm" className="link" onClick={handleDrawerToggle}>
+          <a href="#/bm" className="link" onClick={handleDrawerToggle}>
             <ListItemButton>
               <ListItemText primary="Measurements" />
             </ListItemButton>
           </a>
-          <a href="/diet" className="link" onClick={handleDrawerToggle}>
+          <a href="#/diet" className="link" onClick={handleDrawerToggle}>
             <ListItemButton>
               <ListItemText primary="Diet" />
             </ListItemButton>
           </a>
-          <a href="/yoga" className="link" onClick={handleDrawerToggle}>
+          <a href="#/yoga" className="link" onClick={handleDrawerToggle}>
             <ListItemButton>
               <ListItemText primary="Yoga" />
             </ListItemButton>
           </a>
-          <a href="/workout" className="link" onClick={handleDrawerToggle}>
+          <a href="#/workout" className="link" onClick={handleDrawerToggle}>
             <ListItemButton>
               <ListItemText primary="Workout" />
             </ListItemButton>
