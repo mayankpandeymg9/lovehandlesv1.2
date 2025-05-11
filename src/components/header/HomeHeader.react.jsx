@@ -27,11 +27,6 @@ const HomeHeader = ({ props }) => {
     navigate("/login");
   };
 
-  const handleNavigation = (path) => {
-    navigate(path);
-    setMobileOpen(false);
-  };
-
   const [mobileOpen, setMobileOpen] = useState(false);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -39,8 +34,6 @@ const HomeHeader = ({ props }) => {
 
   const drawer = (
     <>
-      {/* Navbar */}
-
       <Container
         sx={{
           background: "#00040f",
@@ -51,39 +44,47 @@ const HomeHeader = ({ props }) => {
           gap: 1,
         }}
       >
-        <Box
-          onClick={() => handleNavigation("/home")}
-          sx={{
-            display: { lg: "flex", md: "flex", sm: "flex", xs: "flex" },
-            justifyContent: {
-              md: "flex-start",
-              sm: "flex-start",
-              xs: "flex-start",
-            },
-            alignItems: { md: "center", sm: "center", xs: "center" },
-            cursor: "pointer"
-          }}
-        >
-          <img src={LogoWithText} alt="logo" width="50%"></img>
-        </Box>
+        <a href="https://mayankpandeymg9.github.io/lovehandlesv1.2/#/home" style={{ textDecoration: 'none' }}>
+          <Box
+            sx={{
+              display: { lg: "flex", md: "flex", sm: "flex", xs: "flex" },
+              justifyContent: {
+                md: "flex-start",
+                sm: "flex-start",
+                xs: "flex-start",
+              },
+              alignItems: { md: "center", sm: "center", xs: "center" },
+            }}
+          >
+            <img src={LogoWithText} alt="logo" width="50%"></img>
+          </Box>
+        </a>
         <List
           sx={{
             width: "60%",
             color: "#fff",
           }}
         >
-          <ListItemButton onClick={() => handleNavigation("/bm")}>
-            <ListItemText primary="Measurements" />
-          </ListItemButton>
-          <ListItemButton onClick={() => handleNavigation("/diet")}>
-            <ListItemText primary="Diet" />
-          </ListItemButton>
-          <ListItemButton onClick={() => handleNavigation("/yoga")}>
-            <ListItemText primary="Yoga" />
-          </ListItemButton>
-          <ListItemButton onClick={() => handleNavigation("/workout")}>
-            <ListItemText primary="Workout" />
-          </ListItemButton>
+          <a href="https://mayankpandeymg9.github.io/lovehandlesv1.2/#/bm" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <ListItemButton onClick={handleDrawerToggle}>
+              <ListItemText primary="Measurements" />
+            </ListItemButton>
+          </a>
+          <a href="https://mayankpandeymg9.github.io/lovehandlesv1.2/#/diet" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <ListItemButton onClick={handleDrawerToggle}>
+              <ListItemText primary="Diet" />
+            </ListItemButton>
+          </a>
+          <a href="https://mayankpandeymg9.github.io/lovehandlesv1.2/#/yoga" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <ListItemButton onClick={handleDrawerToggle}>
+              <ListItemText primary="Yoga" />
+            </ListItemButton>
+          </a>
+          <a href="https://mayankpandeymg9.github.io/lovehandlesv1.2/#/workout" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <ListItemButton onClick={handleDrawerToggle}>
+              <ListItemText primary="Workout" />
+            </ListItemButton>
+          </a>
           <Divider
             color="#fff"
             sx={{
@@ -101,13 +102,11 @@ const HomeHeader = ({ props }) => {
           </ListItemButton>
         </List>
       </Container>
-      {/* Navbar */}
     </>
   );
+
   return (
     <>
-      {/* Navbar */}
-
       <Box
         sx={{
           position: "relative",
@@ -145,21 +144,21 @@ const HomeHeader = ({ props }) => {
             >
               <MenuIcon />
             </IconButton>
-            <Box
-              onClick={() => handleNavigation("/home")}
-              sx={{
-                display: { lg: "flex", md: "flex", sm: "flex", xs: "flex" },
-                justifyContent: {
-                  md: "flex-start",
-                  sm: "flex-start",
-                  xs: "flex-start",
-                },
-                alignItems: { md: "center", sm: "center", xs: "center" },
-                cursor: "pointer"
-              }}
-            >
-              <img src={LogoWithText} alt="logo" width="50%"></img>
-            </Box>
+            <a href="https://mayankpandeymg9.github.io/lovehandlesv1.2/#/home" style={{ textDecoration: 'none' }}>
+              <Box
+                sx={{
+                  display: { lg: "flex", md: "flex", sm: "flex", xs: "flex" },
+                  justifyContent: {
+                    md: "flex-start",
+                    sm: "flex-start",
+                    xs: "flex-start",
+                  },
+                  alignItems: { md: "center", sm: "center", xs: "center" },
+                }}
+              >
+                <img src={LogoWithText} alt="logo" width="50%"></img>
+              </Box>
+            </a>
             <Box
               sx={{
                 display: { lg: "flex", xs: "none", md: "none", sm: "none" },
@@ -170,10 +169,18 @@ const HomeHeader = ({ props }) => {
                 color: "#ffffff",
               }}
             >
-              <Button variant="h6" onClick={() => handleNavigation("/bm")}>Measurements</Button>
-              <Button variant="h6" onClick={() => handleNavigation("/diet")}>Diet</Button>
-              <Button variant="h6" onClick={() => handleNavigation("/yoga")}>Yoga</Button>
-              <Button variant="h6" onClick={() => handleNavigation("/workout")}>Workout</Button>
+              <a href="https://mayankpandeymg9.github.io/lovehandlesv1.2/#/bm" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Button variant="h6">Measurements</Button>
+              </a>
+              <a href="https://mayankpandeymg9.github.io/lovehandlesv1.2/#/diet" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Button variant="h6">Diet</Button>
+              </a>
+              <a href="https://mayankpandeymg9.github.io/lovehandlesv1.2/#/yoga" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Button variant="h6">Yoga</Button>
+              </a>
+              <a href="https://mayankpandeymg9.github.io/lovehandlesv1.2/#/workout" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Button variant="h6">Workout</Button>
+              </a>
               <Button
                 variant="contained"
                 color="secondary"
