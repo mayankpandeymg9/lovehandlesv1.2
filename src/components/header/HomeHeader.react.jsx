@@ -26,6 +26,12 @@ const HomeHeader = ({ props }) => {
     logout();
     navigate("/login");
   };
+
+  const handleNavigation = (path) => {
+    navigate(path);
+    setMobileOpen(false);
+  };
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -45,64 +51,54 @@ const HomeHeader = ({ props }) => {
           gap: 1,
         }}
       >
-        <Link to="/home">
-          <Box
-            sx={{
-              display: { lg: "flex", md: "flex", sm: "flex", xs: "flex" },
-              justifyContent: {
-                md: "flex-start",
-                sm: "flex-start",
-                xs: "flex-start",
-              },
-              alignItems: { md: "center", sm: "center", xs: "center" },
-            }}
-          >
-            <img src={LogoWithText} alt="logo" width="50%"></img>
-          </Box>
-        </Link>
+        <Box
+          onClick={() => handleNavigation("/home")}
+          sx={{
+            display: { lg: "flex", md: "flex", sm: "flex", xs: "flex" },
+            justifyContent: {
+              md: "flex-start",
+              sm: "flex-start",
+              xs: "flex-start",
+            },
+            alignItems: { md: "center", sm: "center", xs: "center" },
+            cursor: "pointer"
+          }}
+        >
+          <img src={LogoWithText} alt="logo" width="50%"></img>
+        </Box>
         <List
           sx={{
             width: "60%",
             color: "#fff",
           }}
         >
-          <Link to="/bm" className="link" onClick={handleDrawerToggle}>
-            <ListItemButton>
-              <ListItemText primary="Measurements" />
-            </ListItemButton>
-          </Link>
-          <Link to="/diet" className="link" onClick={handleDrawerToggle}>
-            <ListItemButton>
-              <ListItemText primary="Diet" />
-            </ListItemButton>
-          </Link>
-          <Link to="/yoga" className="link" onClick={handleDrawerToggle}>
-            <ListItemButton>
-              <ListItemText primary="Yoga" />
-            </ListItemButton>
-          </Link>
-          <Link to="/workout" className="link" onClick={handleDrawerToggle}>
-            <ListItemButton>
-              <ListItemText primary="Workout" />
-            </ListItemButton>
-          </Link>
+          <ListItemButton onClick={() => handleNavigation("/bm")}>
+            <ListItemText primary="Measurements" />
+          </ListItemButton>
+          <ListItemButton onClick={() => handleNavigation("/diet")}>
+            <ListItemText primary="Diet" />
+          </ListItemButton>
+          <ListItemButton onClick={() => handleNavigation("/yoga")}>
+            <ListItemText primary="Yoga" />
+          </ListItemButton>
+          <ListItemButton onClick={() => handleNavigation("/workout")}>
+            <ListItemText primary="Workout" />
+          </ListItemButton>
           <Divider
             color="#fff"
             sx={{
               width: "50%",
             }}
           />
-          <Link to="/Login" className="link" onClick={handleDrawerToggle}>
-            <ListItemButton>
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={handleClick}
-              >
-                Logout
-              </Button>
-            </ListItemButton>
-          </Link>
+          <ListItemButton>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={handleClick}
+            >
+              Logout
+            </Button>
+          </ListItemButton>
         </List>
       </Container>
       {/* Navbar */}
@@ -149,21 +145,21 @@ const HomeHeader = ({ props }) => {
             >
               <MenuIcon />
             </IconButton>
-            <Link to="/home">
-              <Box
-                sx={{
-                  display: { lg: "flex", md: "flex", sm: "flex", xs: "flex" },
-                  justifyContent: {
-                    md: "flex-start",
-                    sm: "flex-start",
-                    xs: "flex-start",
-                  },
-                  alignItems: { md: "center", sm: "center", xs: "center" },
-                }}
-              >
-                <img src={LogoWithText} alt="logo" width="50%"></img>
-              </Box>
-            </Link>
+            <Box
+              onClick={() => handleNavigation("/home")}
+              sx={{
+                display: { lg: "flex", md: "flex", sm: "flex", xs: "flex" },
+                justifyContent: {
+                  md: "flex-start",
+                  sm: "flex-start",
+                  xs: "flex-start",
+                },
+                alignItems: { md: "center", sm: "center", xs: "center" },
+                cursor: "pointer"
+              }}
+            >
+              <img src={LogoWithText} alt="logo" width="50%"></img>
+            </Box>
             <Box
               sx={{
                 display: { lg: "flex", xs: "none", md: "none", sm: "none" },
@@ -174,27 +170,17 @@ const HomeHeader = ({ props }) => {
                 color: "#ffffff",
               }}
             >
-              <Link to="/bm" className="link">
-                <Button variant="h6">Measurements</Button>
-              </Link>
-              <Link to="/diet" className="link">
-                <Button variant="h6">Diet</Button>
-              </Link>
-              <Link to="/yoga" className="link">
-                <Button variant="h6">Yoga</Button>
-              </Link>
-              <Link to="/workout" className="link">
-                <Button variant="h6">Workout</Button>
-              </Link>
-              <Link to="/" className="link">
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={handleClick}
-                >
-                  Logout
-                </Button>
-              </Link>
+              <Button variant="h6" onClick={() => handleNavigation("/bm")}>Measurements</Button>
+              <Button variant="h6" onClick={() => handleNavigation("/diet")}>Diet</Button>
+              <Button variant="h6" onClick={() => handleNavigation("/yoga")}>Yoga</Button>
+              <Button variant="h6" onClick={() => handleNavigation("/workout")}>Workout</Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={handleClick}
+              >
+                Logout
+              </Button>
             </Box>
           </Toolbar>
         </AppBar>
