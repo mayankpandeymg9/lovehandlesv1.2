@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/lovehandlesv1.2/static/css/main.e1c827c8.css",
-    "main.js": "/lovehandlesv1.2/static/js/main.83d6cf70.js",
+    "main.js": "/lovehandlesv1.2/static/js/main.593df25d.js",
     "static/media/hero-section-new.png": "/lovehandlesv1.2/static/media/hero-section-new.78876e72250f331d5314.png",
     "static/media/finger-push-up.gif": "/lovehandlesv1.2/static/media/finger-push-up.7c1654b3cf899a1fab91.gif",
     "static/media/squat.gif": "/lovehandlesv1.2/static/media/squat.d3f06303a43dd8041057.gif",
@@ -26,10 +26,10 @@
     "static/media/initialIMG.svg": "/lovehandlesv1.2/static/media/initialIMG.1f6a7fdc48608cf56700b8ff615f598f.svg",
     "static/media/quotes.svg": "/lovehandlesv1.2/static/media/quotes.c8bb1da8320f056e0e1cf903465cc3a6.svg",
     "main.e1c827c8.css.map": "/lovehandlesv1.2/static/css/main.e1c827c8.css.map",
-    "main.83d6cf70.js.map": "/lovehandlesv1.2/static/js/main.83d6cf70.js.map"
+    "main.593df25d.js.map": "/lovehandlesv1.2/static/js/main.593df25d.js.map"
   },
   "entrypoints": [
     "static/css/main.e1c827c8.css",
-    "static/js/main.83d6cf70.js"
+    "static/js/main.593df25d.js"
   ]
 }
