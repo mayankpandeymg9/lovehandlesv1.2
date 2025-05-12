@@ -18,7 +18,7 @@ Love Handles is a modern, AI-powered fitness and wellness web application design
 ---
 
 ## Demo
-> _Add a link to your deployed app or a demo video here._
+[> _Add a link to your deployed app or a demo video here._](https://mayankpandeymg9.github.io/lovehandlesv1.2/)
 
 ---
 
