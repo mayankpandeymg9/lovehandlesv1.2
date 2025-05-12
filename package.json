@@ -28,6 +28,7 @@
     "react-scripts": "5.0.1",
     "react-webcam": "^7.2.0",
     "recharts": "^2.15.3",
+    "use-hash-history": "^1.3.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

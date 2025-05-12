@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import './index.css';
 
 let theme = createTheme({
@@ -37,9 +37,9 @@ let theme = createTheme({
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-    <BrowserRouter>
+    <HashRouter>
       <App />
-    </BrowserRouter>
+    </HashRouter>
   </ThemeProvider>,
   document.getElementById("root")
 );
