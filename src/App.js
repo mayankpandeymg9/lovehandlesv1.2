@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import {Route, Routes, useNavigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Yoga from "./pages/Yoga";
 import Counter from "./components/counter";
@@ -53,6 +53,7 @@ function App() {
         <Route path="/trikonasana" element={<Trikonasana />} />
         <Route path="/AdhoMukhaSvanasana" element={<AdhoMukhaSvanasana />} />
       </Routes>
+
       {/* footer */}
       <Box
         sx={{
